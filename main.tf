@@ -13,20 +13,20 @@ provider "azurerm" {
 }
 
 resource "azurerm_resource_group" "ntms" {
-name = "ayushicloud-RG"
-location = "eastus"
+name = var.rgname
+location = var.location
 }
 
 resource "azurerm_virtual_network" "ntms" {
-name = "vnet1"
-location = azurerm_resource_group.ntms.location
-resource_group_name = azurerm_resource_group.ntms.name 
+name = var.vnet
+location = var.location
+resource_group_name = var.rgname
 address_space = ["10.1.0.0/16"]
 } 
 
 resource "azurerm_subnet" "subnet1" {
 name = "subnet1"
-resource_group_name = azurerm_resource_group.ntms.name
-virtual_network_name = azurerm_virtual_network.ntms.name
+resource_group_name = var.rgname
+virtual_network_name = var.vnet
 address_prefixes = ["10.1.1.0/24"]
 }
